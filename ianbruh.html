@@ -1,0 +1,70 @@
+<style>
+body {
+	display: flex;
+	align-items: center;
+	background-color: #3f3f3f;
+	font-family: Consolas;
+	color: white;
+}
+
+.countdown-container {
+	margin: auto;
+	text-align: center;
+	letter-spacing: .3rem;
+}
+
+li {
+    display: inline-block;
+	letter-spacing: .1rem;
+    font-size: 2em;
+    padding: 1em;
+}
+
+li p {
+	font-size: 4em;
+	margin: 0;
+}
+</style>
+
+<div class="countdown-container">
+	<h1>IAN ALL ACHIEVEMENT COUNTDOWN</h1>
+	<div id="countdown">
+		<ul id="time">
+			<li><p id="days">00</p>DAYS</li>
+			<li><p id="hours">00</p>HOURS</li>
+			<li><p id="minutes">00</p>MINUTES</li>
+			<li><p id="seconds">00</p>SECONDS</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+const targetDate = new Date("May 15, 2023 00:00:00").getTime();
+const second = 1000;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+
+let countdown = setInterval(() => {
+  let curTime = new Date().getTime();
+  let timeDiff = targetDate - curTime;
+
+  // Calculate days, hours, minutes, seconds
+  let days = Math.floor(timeDiff / day);
+  let hours = Math.floor((timeDiff % day) / hour);
+  let minutes = Math.floor((timeDiff % hour) / minute);
+  let seconds = Math.floor((timeDiff % minute) / second);
+
+  // Update the HTML
+  document.getElementById("days").innerHTML = days.toString().padStart(2, "0");
+  document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+  document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+  document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+
+  // Update HTML once countdown is finished
+  if (timeDiff < 0) {
+    clearInterval(countdown);
+    document.getElementById("countdown").innerHTML = "FINISHED";
+  }
+}, 1000);
+</script>
